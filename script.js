@@ -41,6 +41,23 @@ canvas.addEventListener('drop', async e => {
 
   makeDraggable(wrapper);
   canvas.appendChild(wrapper);
+
+  canvas.querySelector(".markdown-display-toggle").addEventListener("click", () => {
+    const previewDiv = canvas.querySelector(".markdown-preview");
+    const textarea = canvas.querySelector(".markdown-editor");
+    const previewButton = canvas.querySelector(".markdown-display-toggle")
+
+    if (previewDiv.style.display === 'none') {
+      previewDiv.innerHTML = marked.parse(textarea.value);
+      previewDiv.style.display = 'block';
+      textarea.style.display = 'none';
+      previewButton.textContent = 'Edit';
+    } else {
+      previewDiv.style.display = 'none';
+      textarea.style.display = 'block';
+      previewButton.textContent = 'Preview';
+    }
+  });
 });
 
 // 2. Make block draggable (but not when clicking a connector)
@@ -219,7 +236,8 @@ function updateBlockConnections(blockId) {
 }
 
 // 6. Export flow data
-function exportFlow() {
+function exportFlow(toDownload=false) {
+
   // Update block data from UI
   blocks.forEach(block => {
     const el = document.querySelector(`[data-id="${block.id}"]`);
@@ -253,6 +271,10 @@ function exportFlow() {
       block.data = {
         response: el.querySelector('textarea')?.value || ''
       };
+    } else if (block.type === 'read-me') {
+      block.data = {
+        response: el.querySelector('textarea')?.value || ''
+      };
     }
     // Add more types as needed
   });
@@ -265,14 +287,18 @@ function exportFlow() {
 
   const flowJSON = JSON.stringify({ blocks, connections: cleanConnections }, null, 2);
   
-  // Create and trigger download
-  const blob = new Blob([flowJSON], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "flow.json";
-  a.click();
-  URL.revokeObjectURL(url);
+  if (toDownload) {
+    // Create and trigger download
+    const blob = new Blob([flowJSON], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "flow.json";
+    a.click();
+    URL.revokeObjectURL(url); 
+  }
+
+  return flowJSON;
 }
 
 // 7. Import JSON flow
@@ -314,6 +340,8 @@ document.getElementById('import-file').addEventListener('change', async (e) => {
         wrapper.querySelector('input').value = blockData.data.input || '';
       } else if (blockData.type === 'chat-output') {
         wrapper.querySelector('textarea').value = blockData.data.response || '';
+      } else if (blockData.type === 'read-me') {
+        wrapper.querySelector('textarea').value = blockData.data.response || '';
       }
 
       canvas.appendChild(wrapper);
@@ -350,3 +378,8 @@ document.getElementById('import-file').addEventListener('change', async (e) => {
 
 // Expose export function to global scope for button access
 window.exportFlow = exportFlow;
+
+function processFlow() {
+  const flowJSON = exportFlow(toDownload=false);
+  // Call API Endpoint here to execute process and create an agent out of it.
+}

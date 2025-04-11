@@ -9,11 +9,13 @@
 <body>
   <!-- Sidebar for components -->
   <div class="sidebar">
-    <button onclick="exportFlow()">Export Flow</button>
+    <button onclick="exportFlow(true)">Export Flow</button>
     <input type="file" id="import-file" accept=".json" />
+    <button onclick="exportFlow(false)">Compile Flow</button>
 
 
     <h3>Components</h3>
+    <div class="component" draggable="true" data-block="read-me">Read Me</div>
     <div class="component" draggable="true" data-block="agent">Agent</div>
     <div class="component" draggable="true" data-block="calculator">Calculator</div>
     <div class="component" draggable="true" data-block="url">URL</div>
@@ -30,6 +32,7 @@
   </div>
 
   <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
