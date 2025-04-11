@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Agent UI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="sidebar">
+      <h3>Components</h3>
+      <div class="component" draggable="true">Chat Input</div>
+      <div class="component" draggable="true">URL</div>
+      <div class="component" draggable="true">Calculator</div>
+      <div class="component" draggable="true">Chat Output</div>
+    </div>
+
+    <div class="topbar">
+      <span>My Projects > Simple Agent</span>
+      <span class="status">💾 Saved</span>
+    </div>
+
+    <div class="canvas" id="canvas">
+      <!-- Blocks will be added here -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
