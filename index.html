@@ -7,12 +7,42 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="title-bar">
+    <div class="actions">
+      <button onclick="exportFlow(true)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Export Flow
+      </button>
+      
+      <div>
+        <input type="file" id="import-file" accept=".json" class="import-file">
+        <label for="file-input" class="button file-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="15" y2="15"></line>
+          </svg>
+          Choose file
+        </label>
+        <span class="file-name">No file chosen</span>
+      </div>
+      
+      <button onclick="exportFlow(false)" class="button primary-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+          <polyline points="16 7 22 7 22 13"></polyline>
+        </svg>
+        Compile Flow
+      </button>
+    </div>
+  </div>
   <!-- Sidebar for components -->
   <div class="sidebar">
-    <button onclick="exportFlow(true)">Export Flow</button>
-    <input type="file" id="import-file" accept=".json" />
-    <button onclick="exportFlow(false)">Compile Flow</button>
-
 
     <h3>Components</h3>
     <div class="component" draggable="true" data-block="read-me">Read Me</div>
