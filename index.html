@@ -7,25 +7,29 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
-    <div class="sidebar">
-      <h3>Components</h3>
-      <div class="component" draggable="true">Chat Input</div>
-      <div class="component" draggable="true">URL</div>
-      <div class="component" draggable="true">Calculator</div>
-      <div class="component" draggable="true">Chat Output</div>
-    </div>
+  <!-- Sidebar for components -->
+  <div class="sidebar">
+    <button onclick="exportFlow()">Export Flow</button>
+    <input type="file" id="import-file" accept=".json" />
 
-    <div class="topbar">
-      <span>My Projects > Simple Agent</span>
-      <span class="status">💾 Saved</span>
-    </div>
 
-    <div class="canvas" id="canvas">
-      <!-- Blocks will be added here -->
-    </div>
+    <h3>Components</h3>
+    <div class="component" draggable="true" data-block="agent">Agent</div>
+    <div class="component" draggable="true" data-block="calculator">Calculator</div>
+    <div class="component" draggable="true" data-block="url">URL</div>
+    <div class="component" draggable="true" data-block="chat-input">Chat Input</div>
+    <div class="component" draggable="true" data-block="chat-output">Chat Output</div>
   </div>
 
+  <!-- Canvas + SVG layer -->
+  <div class="canvas-wrapper">
+    <div class="canvas" id="canvas"></div>
+
+    <!-- SVG layer for drawing connection lines -->
+    <svg id="connection-layer"></svg>
+  </div>
+
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
